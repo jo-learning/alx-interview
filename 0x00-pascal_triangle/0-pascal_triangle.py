@@ -1,32 +1,31 @@
 #!/usr/bin/python3
-""" pascal triangle
-"""
+"""returns a pascal triangle"""
 
 
 def pascal_triangle(n):
-    """ returns pascal triangle
     """
+    returns a list of integers in a pascal triangle format
+    """
+
     if n <= 0:
+        # return empty list
         return []
+    pascal = [[1]]
+    if n == 1:
+        return pascal
 
-    pasTran = []
-
-    for i in range(n):
-        # first element
-        my_List = [1]
-        if i == 0:
-            pasTran.append(my_List)
-            continue
-
-        k = i - 1
-        for j in range(len(pasTran[k])):
-            if j + 1 == len(pasTran[k]):
-                # last element
-                my_List.append(1)
-                break
-            # Add two previous values to get current next value
-            nextVal = pasTran[k][j] + pasTran[k][j + 1]
-            my_List.append(nextVal)
-        pasTran.append(my_List)
-
-    return pasTran
+    for i in range(1, n):
+        left = -1
+        right = 0
+        in_pas = []
+        for j in range(i + 1):
+            num = 0 
+            if left > -1:
+                num += pascal[i - 1][left]
+            if right < i:
+                num += pascal[i - 1][right]
+            left += 1
+            right += 1
+            in_pas.append(num)
+        pascal.append(in_pas)
+    return pascal
